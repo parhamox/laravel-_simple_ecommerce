@@ -2,32 +2,83 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Hash;
+use Illuminate\Validation\ValidationException;
+use Auth;
 
 
 class Authcontroller extends Controller
 {
-    public function Login(){
+   function register()
+   {
+
+        return view('auth/register');
+
+   }
+
+   function registerSave(Request $request)
+   {
+
+    Validator::make($request->all(),[
+
+        'name' => 'required',
+        'email' =>'required|email',
+        'password' => 'required|confirmed',
+
+    ])->validate();
 
 
-        validator(request()->all(),[
+    User::create([
+
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
 
 
-             'email'=>'required|email',
-             'password'=>'required'
+
+    ]);
+    return redirect()->route('login');
+   }
+
+   function login()
+   {
+    return view('auth/login');
+   }
+   function loginAction(Request $request)
+    {
+
+        Validator::make($request->all(),[
+
+            'email' =>'required|email',
+            'password' => 'required',
+
+            ])->validate();
+
+    if (!Auth::attempt($request->only('email', 'password'),$request->boolean('remember'))) {
+
+        throw ValidationException::withMessages([
+
+            'email' => trans('auth.failled') ,
+
+        ]);
 
 
-        ])->validate();
+        # code...
+    }
+    $request->session()->regenerate();
+        return redirect()->route('register');
 
-        if (auth()->attempt(request()->only(['email', 'password']))){
-
-            return redirect()->route('index');
 
 
-        }
 
-        return redirect()->back()->withErrors(['email'=> 'the email and password is incorrect']);
+
+    }
+
+
 
 }
 
-}
+

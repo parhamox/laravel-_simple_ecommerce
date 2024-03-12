@@ -1,76 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration Form</title>
-  <style>
-    /* Optional styling for the form */
-    form {
-      display: flex;
-      flex-direction: column;
-      width: 300px;
-      margin: 50px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-    }
 
-    label {
-      margin-bottom: 5px;
-      display: block;
-    }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    input[type="password"], input[type="email"], input[type="tel"] {
-      padding: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 15px;
-    }
+    <title>simple mentor task</title>
 
-    .button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px
-    }
+    <!-- Custom fonts for this template-->
+    <link href="{{ asset('admin_assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-    .error {
-      color: red;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-  </style>
+    <!-- Custom styles for this template-->
+    <link href="{{asset('admin_assets/css/sb-admin-2.css')}}" rel="stylesheet">
+
 </head>
-<body>
-  <h1>Register</h1>
 
-  @if ($errors->any())
-    <div class="error">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">ثبت نام  !! </h1>
+                            </div>
+                            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
-  @endif
+@endif
 
-  <form action="{{ route('register') }}" method="post">
+<form action="{{ Route('register.save') }}" method="POST" class="user">
     @csrf
+    <div class="form-group row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <input name="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="نام نام خوانوادگی">
+            @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group">
+        <input name="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="email" placeholder="ایمیل">
+        @error('email')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <input name="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="password" placeholder="رمز عبور">
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="col-sm-6">
+            <input name="password_confirmation" type="password" class="form-control form-control-user @error('password_confirmation') is-invalid @enderror" id="password_confirmation" placeholder=" تکرار رمز ">
+            @error('password_confirmation')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-user btn-block">ثبت نام</button>
+</form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="{{Route('login')}}" >قبلا ثبت نام کردید؟ ورود</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" >
+    </div>
 
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" >
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{asset('admin_assets/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-    <label for="phone">Phone Number:</label>
-    <input type="tel" name="phone" id="phone">
+    <!-- Core plugin JavaScript-->
+    <script src="{{asset('admin_assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" >
+    <!-- Custom scripts for all pages-->
+    <script src="{{asset('admin_assets/js/sb-admin-2.js')}}"></script>
 
-    <button type="submit" class="button btn btn-primary">Register</button>
-  </form>
 </body>
+
 </html>
