@@ -69,13 +69,24 @@ class Authcontroller extends Controller
         # code...
     }
     $request->session()->regenerate();
-        return redirect()->route('register');
-
-
-
-
+        return redirect()->route('index');
 
     }
+
+    function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        return redirect('login');
+
+    }
+
+    function profile()
+    {
+        return view('layouts.profile');
+    }
+
+
 
 
 

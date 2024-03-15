@@ -5,8 +5,10 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\UserController;
 use Faker\Guesser\Name;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +26,23 @@ Route::get('/', function () {
 })->name('index');
 
 
-Route::controller(Authcontroller::class)->group(function () {
+Route::controller(Authcontroller::class)->group(function() {
     Route::get('register', 'register')->name('register');
     Route::post('register', 'registerSave')->name('register.save');
     Route::get('login', 'login')->name('login');
     Route::post('login', 'loginAction')->name('login.Action');
 
+    Route::get('logout', 'logout')->middleware('auth')->name('logout');
+
 });
-/////////////////////register routes///////////////////////////
+/////////////////////register and login  routes///////////////////////////
+Route::middleware('auth')->group(function () {
+
+    Route::get('dashboard', function(){
+        return view('Auth.dashboard');
+    })->name('dashboard');
+
+    Route::get('/Profile', [App\Http\Controllers\Authcontroller::class, 'profile'])->name('profile');
+
+});
+/////////////////////Auth and profile routes///////////////////////////

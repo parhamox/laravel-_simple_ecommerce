@@ -91,7 +91,7 @@
                                         <a class="small" href="forgot-password.html">رمزتو فراموش کردی ؟</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">اکانت ندارید ؟ ساخت اکانت </a>
+                                        <a class="small" href="{{route('register')}}">اکانت ندارید ؟ ساخت اکانت </a>
                                     </div>
                                 </div>
                             </div>
