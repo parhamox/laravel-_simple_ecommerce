@@ -43,5 +43,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAdmin()
+    {
+        // Implement logic to check if the user is an admin
+        return $this->role === 'Admin'; // Assuming 'role' is a column in your users table indicating the user's role
+    }
+
 
 }

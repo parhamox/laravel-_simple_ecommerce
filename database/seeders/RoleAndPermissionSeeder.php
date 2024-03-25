@@ -25,7 +25,7 @@ class RoleAndPermissionSeeder extends Seeder
         $BuyProductPermission = \Spatie\Permission\Models\Permission::firstOrCreate(['name' =>'buy-product']);
 
         $superAdmin->givePermissionTo([$AddPruductPermission, $EditPruductPermission, $DeletePruductPermission ,$AddAdminPermission,$EditAdminPermission,$DeleteAdminPermission ]);
-        $admin->givePermissionTo([$AddAdminPermission, $EditAdminPermission, $DeleteAdminPermission]);
+        $admin->givePermissionTo([$AddPruductPermission, $EditPruductPermission, $DeletePruductPermission]);
         $user->givePermissionTo([$ViewPruductPermission , $BuyProductPermission]);
 
     }

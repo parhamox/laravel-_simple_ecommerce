@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Faker\Guesser\Name;
 use GuzzleHttp\Middleware;
@@ -43,6 +44,13 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::get('/Profile', [App\Http\Controllers\Authcontroller::class, 'profile'])->name('profile');
+
+});
+
+Route::controller(ProductController::class)->prefix('products')->group(function () {
+        Route::get('', 'index')->name('products.index');
+        Route::get('create', 'create')->name('products.create');
+        Route::post('/products', 'store')->name('Product.store');
 
 });
 /////////////////////Auth and profile routes///////////////////////////
